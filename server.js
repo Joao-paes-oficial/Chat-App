@@ -1,6 +1,18 @@
-const io = require('socket.io')(3000)
+const app = require('express')()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+const door = 3000
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/index.html')
+})
 
 io.on('connection', socket => {
-    console.log('New user')
-    socket.emit('chat-message', 'Hello World.')
+    socket.on('chat-message', message => {
+        io.emit('chat-message', message)
+    })
+})
+
+http.listen(door, () => {
+    console.log('Server is running on ', door)
 })
