@@ -89,7 +89,7 @@
     ];
 
     if(user_name === null || user_name === '' || user_name === ' ') {
-        user_name = ff[Math.floor(Math.random() * ff.length)];
+        user_name = random_names[Math.floor(Math.random() * random_names.length)];
     }
 
     socket.emit('chat-message', "Welcome" + ' ' + user_name);
